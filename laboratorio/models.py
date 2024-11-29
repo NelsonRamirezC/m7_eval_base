@@ -8,6 +8,9 @@ class DirectorGeneral(models.Model):
    
     def __str__(self):
         return self.nombre
+    
+    def nombre_mayusculas(self):
+        return self.nombre.upper()
  
     class Meta:
         managed = True
