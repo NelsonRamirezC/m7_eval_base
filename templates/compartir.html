@@ -1,0 +1,38 @@
+<h1>Vista compartir</h1>
+
+<h3>ID: {{fotografia.id}}</h3>
+<p>Fotografia: {{fotografia.titulo}}</p>
+<p>Contenido: {{fotografia.contenido}}</p>
+
+
+<div>
+    <form method="POST">
+        {% csrf_token %}
+        <label for="">Con quién desea compartir?</label>
+
+        <select name="usuario">
+            {% for usuario in  usuarios%}
+            <option value="{{usuario.id}}">{{usuario.nombre}}</option>
+            {% endfor %}
+
+            <input type="submit" value="compartir">
+        </select>
+
+    </form>
+
+    <div>
+        <h3>compartido con:</h3>
+
+        {% if compartido_con %}
+
+        <ul>
+            {% for usuario in  compartido_con %}
+                <li>{{usuario.nombre}} - <a href="{% url "deja_compartir_fotografia" fotografia.id usuario.id %}">Dejar de compartir</a></li>
+            {% endfor %}
+        </ul>
+        
+        {% else %}
+        <p>Esta fotografía aún no es compartida con otros usuarios.</p>
+        {% endif %}
+    </div>
+</div>
